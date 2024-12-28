@@ -22,6 +22,7 @@
         <p id="wordDisplay" class="hidden"></p>
         <button id="startTimer" onclick="startTimer()">Iniciar Contador</button>
         <button id="wordGuessed" class="hidden" onclick="wordGuessed()">Palabra Adivinada</button>
+        <button id="skipWord" class="hidden" onclick="skipWord()">Cambiar Palabra</button>
         <p id="scoreInfo" class="score"></p>
     </div>
 
@@ -38,10 +39,10 @@
         let currentPlayerIndex = 0;
         let timerStart = null;
         let categories = {
-            "Animales": ["elefante", "jirafa", "león", "canguro", "pingüino"],
-            "Películas": ["Titanic", "Avatar", "Inception", "Gladiator", "Joker"],
-            "Ciencia": ["microscopio", "átomo", "gravedad", "planeta", "química"],
-            "Deportes": ["fútbol", "básquet", "tenis", "natación", "rugby"]
+            "Animales": ["elefante", "jirafa", "león", "canguro", "pingüino", "tigre", "zorro", "oso"],
+            "Películas": ["Titanic", "Avatar", "Inception", "Gladiator", "Joker", "Matrix", "El Padrino"],
+            "Ciencia": ["microscopio", "átomo", "gravedad", "planeta", "química", "biología", "genética"],
+            "Deportes": ["fútbol", "básquet", "tenis", "natación", "rugby", "voley", "ciclismo"]
         };
         let currentCategory = "";
         let currentWord = "";
@@ -56,11 +57,13 @@
             teamsContainer.innerHTML = "";
             for (let i = 0; i < numTeams; i++) {
                 const teamDiv = document.createElement("div");
-                teamDiv.innerHTML = `<h3>Equipo ${i + 1}</h3>
-                                     <label for="teamName${i}">Nombre del equipo: </label>
-                                     <input type="text" id="teamName${i}">
-                                     <label for="numPlayers${i}">Cantidad de integrantes: </label>
-                                     <input type="number" id="numPlayers${i}" min="1">`;
+                teamDiv.innerHTML = `
+                    <h3>Equipo ${i + 1}</h3>
+                    <label for="teamName${i}">Nombre del equipo: </label>
+                    <input type="text" id="teamName${i}">
+                    <label for="numPlayers${i}">Cantidad de integrantes: </label>
+                    <input type="number" id="numPlayers${i}" min="1">
+                `;
                 teamsContainer.appendChild(teamDiv);
             }
             teamsContainer.classList.remove("hidden");
@@ -91,7 +94,6 @@
 
         function startRound() {
             currentCategory = Object.keys(categories)[Math.floor(Math.random() * Object.keys(categories).length)];
-            currentWord = categories[currentCategory][Math.floor(Math.random() * categories[currentCategory].length)];
             document.getElementById("game").classList.remove("hidden");
             document.getElementById("roundInfo").textContent = `Ronda ${currentRound} - Categoría: ${currentCategory}`;
             startTurn();
@@ -101,54 +103,36 @@
             const team = teams[currentTeamIndex];
             const player = team.members[currentPlayerIndex];
             document.getElementById("turnInfo").textContent = `Turno de ${player} del equipo ${team.name}`;
-            document.getElementById("wordDisplay").textContent = `Palabra: ${currentWord}`;
+            loadNewWord();
             document.getElementById("wordDisplay").classList.remove("hidden");
             document.getElementById("startTimer").classList.remove("hidden");
             document.getElementById("wordGuessed").classList.add("hidden");
+            document.getElementById("skipWord").classList.add("hidden");
         }
 
         function startTimer() {
             timerStart = Date.now();
             document.getElementById("startTimer").classList.add("hidden");
             document.getElementById("wordGuessed").classList.remove("hidden");
+            document.getElementById("skipWord").classList.remove("hidden");
+        }
+
+        function loadNewWord() {
+            currentWord = categories[currentCategory][Math.floor(Math.random() * categories[currentCategory].length)];
+            document.getElementById("wordDisplay").textContent = `Palabra: ${currentWord}`;
         }
 
         function wordGuessed() {
             const elapsed = (Date.now() - timerStart) / 1000;
-            const points = Math.max(0, Math.floor(138 - elapsed));
+            const points = Math.max(0, Math.floor(100 - elapsed * 10)); // Puntos disminuyen según el tiempo.
             teams[currentTeamIndex].score += points;
             document.getElementById("scoreInfo").textContent = `El equipo ${teams[currentTeamIndex].name} ganó ${points} puntos.`;
-
-            currentPlayerIndex++;
-            if (currentPlayerIndex >= teams[currentTeamIndex].members.length) {
-                currentPlayerIndex = 0;
-                currentTeamIndex++;
-            }
-
-            if (currentTeamIndex >= teams.length) {
-                currentTeamIndex = 0;
-                currentRound++;
-                if (currentRound > numRounds) {
-                    endGame();
-                    return;
-                }
-                startRound();
-                return;
-            }
-            startTurn();
+            loadNewWord(); // Cargar una nueva palabra sin terminar el turno.
         }
 
-        function endGame() {
-            document.getElementById("game").classList.add("hidden");
-            const leaderboard = document.getElementById("leaderboard");
-            const leaderboardList = document.getElementById("leaderboardList");
-            leaderboardList.innerHTML = "";
-            teams.sort((a, b) => b.score - a.score).forEach(team => {
-                const li = document.createElement("li");
-                li.textContent = `${team.name}: ${team.score} puntos`;
-                leaderboardList.appendChild(li);
-            });
-            leaderboard.classList.remove("hidden");
+        function skipWord() {
+            document.getElementById("scoreInfo").textContent = `El equipo ${teams[currentTeamIndex].name} no ganó puntos por cambiar la palabra.`;
+            loadNewWord(); // Cambiar palabra sin sumar puntos.
         }
     </script>
 </body>
