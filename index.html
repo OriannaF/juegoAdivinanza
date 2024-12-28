@@ -4,15 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Adivinanzas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
     <h1>Juego de Adivinanzas</h1>
@@ -30,7 +23,7 @@
         <p id="wordDisplay" class="hidden"></p>
         <button id="startTimer" onclick="startTimer()">Iniciar Contador</button>
         <button id="wordGuessed" class="hidden" onclick="wordGuessed()">Palabra Adivinada</button>
-        <p id="scoreInfo"></p>
+        <p id="scoreInfo" class="score"></p>
     </div>
 
     <div id="leaderboard" class="hidden">
