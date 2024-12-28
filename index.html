@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Adivinanzas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Juego de Adivinanzas</h1>
+
+    <div id="setup">
+        <label for="numTeams">Ingrese la cantidad de equipos: </label>
+        <input type="number" id="numTeams" min="1">
+        <button onclick="setupTeams()">Continuar</button>
+        <div id="teamsContainer" class="hidden"></div>
+    </div>
+
+    <div id="game" class="hidden">
+        <h2 id="roundInfo"></h2>
+        <h3 id="turnInfo"></h3>
+        <p id="wordDisplay" class="hidden"></p>
+        <button id="startTimer" onclick="startTimer()">Iniciar Contador</button>
+        <button id="wordGuessed" class="hidden" onclick="wordGuessed()">Palabra Adivinada</button>
+        <p id="scoreInfo"></p>
+    </div>
+
+    <div id="leaderboard" class="hidden">
+        <h2>Leaderboard</h2>
+        <ul id="leaderboardList"></ul>
+    </div>
+
+    <script>
+        let teams = [];
+        let currentRound = 1;
+        let numRounds = 3;
+        let currentTeamIndex = 0;
+        let currentPlayerIndex = 0;
+        let timerStart = null;
+        let categories = {
+            "Animales": ["elefante", "jirafa", "león", "canguro", "pingüino"],
+            "Películas": ["Titanic", "Avatar", "Inception", "Gladiator", "Joker"],
+            "Ciencia": ["microscopio", "átomo", "gravedad", "planeta", "química"],
+            "Deportes": ["fútbol", "básquet", "tenis", "natación", "rugby"]
+        };
+        let currentCategory = "";
+        let currentWord = "";
+
+        function setupTeams() {
+            const numTeams = parseInt(document.getElementById("numTeams").value);
+            if (!numTeams || numTeams < 1) {
+                alert("Ingrese un número válido de equipos.");
+                return;
+            }
+            const teamsContainer = document.getElementById("teamsContainer");
+            teamsContainer.innerHTML = "";
+            for (let i = 0; i < numTeams; i++) {
+                const teamDiv = document.createElement("div");
+                teamDiv.innerHTML = `<h3>Equipo ${i + 1}</h3>
+                                     <label for="teamName${i}">Nombre del equipo: </label>
+                                     <input type="text" id="teamName${i}">
+                                     <label for="numPlayers${i}">Cantidad de integrantes: </label>
+                                     <input type="number" id="numPlayers${i}" min="1">`;
+                teamsContainer.appendChild(teamDiv);
+            }
+            teamsContainer.classList.remove("hidden");
+            const button = document.createElement("button");
+            button.textContent = "Iniciar Juego";
+            button.onclick = startGameSetup;
+            teamsContainer.appendChild(button);
+        }
+
+        function startGameSetup() {
+            const numTeams = parseInt(document.getElementById("numTeams").value);
+            for (let i = 0; i < numTeams; i++) {
+                const teamName = document.getElementById(`teamName${i}`).value;
+                const numPlayers = parseInt(document.getElementById(`numPlayers${i}`).value);
+                if (!teamName || !numPlayers || numPlayers < 1) {
+                    alert("Complete todos los campos correctamente.");
+                    return;
+                }
+                const members = [];
+                for (let j = 0; j < numPlayers; j++) {
+                    members.push(prompt(`Nombre del integrante ${j + 1} del equipo ${teamName}:`));
+                }
+                teams.push({ name: teamName, members, score: 0 });
+            }
+            document.getElementById("setup").classList.add("hidden");
+            startRound();
+        }
+
+        function startRound() {
+            currentCategory = Object.keys(categories)[Math.floor(Math.random() * Object.keys(categories).length)];
+            currentWord = categories[currentCategory][Math.floor(Math.random() * categories[currentCategory].length)];
+            document.getElementById("game").classList.remove("hidden");
+            document.getElementById("roundInfo").textContent = `Ronda ${currentRound} - Categoría: ${currentCategory}`;
+            startTurn();
+        }
+
+        function startTurn() {
+            const team = teams[currentTeamIndex];
+            const player = team.members[currentPlayerIndex];
+            document.getElementById("turnInfo").textContent = `Turno de ${player} del equipo ${team.name}`;
+            document.getElementById("wordDisplay").textContent = `Palabra: ${currentWord}`;
+            document.getElementById("wordDisplay").classList.remove("hidden");
+            document.getElementById("startTimer").classList.remove("hidden");
+            document.getElementById("wordGuessed").classList.add("hidden");
+        }
+
+        function startTimer() {
+            timerStart = Date.now();
+            document.getElementById("startTimer").classList.add("hidden");
+            document.getElementById("wordGuessed").classList.remove("hidden");
+        }
+
+        function wordGuessed() {
+            const elapsed = (Date.now() - timerStart) / 1000;
+            const points = Math.max(0, Math.floor(138 - elapsed));
+            teams[currentTeamIndex].score += points;
+            document.getElementById("scoreInfo").textContent = `El equipo ${teams[currentTeamIndex].name} ganó ${points} puntos.`;
+
+            currentPlayerIndex++;
+            if (currentPlayerIndex >= teams[currentTeamIndex].members.length) {
+                currentPlayerIndex = 0;
+                currentTeamIndex++;
+            }
+
+            if (currentTeamIndex >= teams.length) {
+                currentTeamIndex = 0;
+                currentRound++;
+                if (currentRound > numRounds) {
+                    endGame();
+                    return;
+                }
+                startRound();
+                return;
+            }
+            startTurn();
+        }
+
+        function endGame() {
+            document.getElementById("game").classList.add("hidden");
+            const leaderboard = document.getElementById("leaderboard");
+            const leaderboardList = document.getElementById("leaderboardList");
+            leaderboardList.innerHTML = "";
+            teams.sort((a, b) => b.score - a.score).forEach(team => {
+                const li = document.createElement("li");
+                li.textContent = `${team.name}: ${team.score} puntos`;
+                leaderboardList.appendChild(li);
+            });
+            leaderboard.classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
