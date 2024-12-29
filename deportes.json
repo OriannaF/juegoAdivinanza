@@ -22,3 +22,7 @@
     "caribú", "gacela", "toro", "cobaya", "hamster", "ardilla voladora", "albatros", "pingüino rey", "faisán", "pavo real",
     "mochuelo", "gorrión", "colibrí", "cacatúa", "periquito", "ornitorrinco", "wallaby", "kiwi", "perezoso", "tapir"
 ],
+
+<div id="imageCarousel" style="text-align: center; margin-bottom: 20px;">
+        <img id="carouselImage" src="imagenes/im1.jpeg" alt="Carrusel" style="max-width: 100%; height: auto;">
+    </div>
