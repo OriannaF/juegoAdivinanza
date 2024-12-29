@@ -38,10 +38,50 @@
         let timeRemaining = totalTeamTime;
         let wordStartTime = null; // Marca de tiempo para calcular puntos por palabra
         let categories = {
-            "Animales": ["elefante", "jirafa", "león", "canguro", "pingüino"],
-            "Películas": ["Titanic", "Avatar", "Inception", "Gladiator", "Joker"],
-            "Ciencia": ["microscopio", "átomo", "gravedad", "planeta", "química"],
-            "Deportes": ["fútbol", "básquet", "tenis", "natación", "rugby"]
+            "Animales": [
+    "elefante", "jirafa", "león", "canguro", "pingüino", "tigre", "zorro", "oso", "ballena", "águila",
+    "perro", "gato", "ratón", "conejo", "caballo", "vaca", "oveja", "lobo", "mono", "delfín",
+    "rana", "pez", "serpiente", "tortuga", "cocodrilo", "puma", "camello", "hiena", "lémur", "ardilla",
+    "búho", "halcón", "canario", "cisne", "ganso", "pato", "flamenco", "pelícano", "foca", "morsa",
+    "mamut", "rinoceronte", "hipopótamo", "ciervo", "alce", "antílope", "cabra", "coyote", "murciélago", "búfalo",
+    "castor", "mapache", "zorrillo", "lagarto", "iguana", "cangrejo", "langosta", "caracol", "mariposa", "abeja",
+    "avispa", "mosquito", "saltamontes", "escorpión", "araña", "camaleón", "koala", "panda", "kookaburra", "pingüino emperador",
+    "orca", "narval", "foca leopardo", "tiburón martillo", "tiburón blanco", "pez payaso", "pez espada", "pez globo", "caballito de mar",
+    "caribú", "gacela", "toro", "cobaya", "hamster", "ardilla voladora", "albatros", "pingüino rey", "faisán", "pavo real",
+    "mochuelo", "gorrión", "colibrí", "cacatúa", "periquito", "ornitorrinco", "wallaby", "kiwi", "perezoso", "tapir"
+],
+            "Películas": ["Titanic", "Avatar", "Inception", "Gladiator", "Joker", "Donde estan las rubias", "Shrek", "Que paso ayer", "Chiquito pero peligroso", "Barbie", "Avatar", "la substancia", "esperando la carroza", "Titanic", "Avatar", "Inception", "Gladiator", "Joker", "Matrix", "El Padrino", "Avengers", "Interstellar", "Dunkerque",
+    "Forrest Gump", "Shrek", "Toy Story", "Coco", "La Bella y la Bestia", "Frozen", "Moana", "Mulan", "El Rey León", "Aladdin",
+    "Harry Potter", "El Hobbit", "El Señor de los Anillos", "Star Wars", "Jurassic Park", "Indiana Jones", "Piratas del Caribe",
+    "Batman", "Spider-Man", "Iron Man", "Thor", "Capitán América", "Doctor Strange", "Black Panther", "Ant-Man", "Guardianes de la Galaxia",
+    "X-Men", "Deadpool", "Logan", "Wolverine", "Transformers", "Fast and Furious", "Misión Imposible", "James Bond", "John Wick",
+    "El Resplandor", "Psicosis", "El Exorcista", "It", "Hereditary", "Un Lugar en Silencio", "El Conjuro", "Annabelle", "Saw", "Paranormal Activity",
+    "Buscando a Nemo", "Up", "WALL-E", "Los Increíbles", "Ratatouille", "Cars", "Monstruos SA", "La Sirenita", "Pinocho", "Dumbo",
+    "Bambi", "101 Dálmatas", "Peter Pan", "La Cenicienta", "Blancanieves", "Frozen 2", "Soul", "Encanto", "Luca", "Turning Red",
+    "Inside Out", "Zootopia", "Big Hero 6", "Wreck-It Ralph", "Bolt", "Tangled", "Brave", "Meet the Robinsons", "Chicken Little", "Home"
+],
+            "Ciencia": ["microscopio", "átomo", "gravedad", "planeta", "química", "biología", "genética", "física", "célula", "telescopio",
+    "galaxia", "estrella", "neutrón", "protón", "electrón", "molécula", "ácido", "base", "energia", "átomo de carbono",
+    "reacción química", "enzima", "ADN", "ARN", "teoría cuántica", "relatividad", "evolución", "Big Bang", "nebulosa", "agujero negro",
+    "clonación", "vacuna", "antígeno", "genoma", "biotecnología", "nanotecnología", "biodiversidad", "fotosíntesis", "ecosistema",
+    "ecología", "hidrógeno", "oxígeno", "dióxido de carbono", "alquimia", "tabla periódica", "eclipses", "meteoritos", "astrofísica",
+    "ingeniería genética", "bioquímica", "astronomía", "geología", "paleontología", "arqueología", "neurociencia", "cibernética", "robot",
+    "computación cuántica", "inteligencia artificial", "programación", "lenguaje de máquinas", "algoritmos", "dinámica de fluidos",
+    "física teórica", "tecnología", "energía solar", "energía eólica", "electricidad", "magnetismo", "termodinámica", "criogenia",
+    "meteorología", "climatología", "sismología", "volcanología", "hidrología", "biología marina", "ecología terrestre", "antropología",
+    "física de partículas", "acelerador de partículas", "rayos X", "resonancia magnética", "ultrasonido", "fuerza", "movimiento", "masa",
+    "peso", "velocidad", "aceleración", "trayectoria", "órbita", "cometa", "satélite", "ondas gravitacionales"
+],
+            "Deportes": ["fútbol", "básquet", "tenis", "natación", "rugby", "voley", "ciclismo", "beisbol", "esgrima", "golf",
+    "atletismo", "boxeo", "judo", "karate", "taekwondo", "hockey", "surf", "snowboard", "skateboarding", "parapente",
+    "remo", "piragüismo", "pesca", "alpinismo", "senderismo", "escalada", "esquí", "patinaje", "kárate", "motociclismo",
+    "automovilismo", "equitación", "criquet", "lacrosse", "softbol", "waterpolo", "salto de altura", "salto de longitud", "maratón",
+    "triatlón", "halterofilia", "lucha libre", "ping pong", "badminton", "padel", "parkour", "kickboxing", "billar", "dardos",
+    "ajedrez", "damas", "eSports", "yoga", "zumba", "crossfit", "calistenia", "capoeira", "pole dance", "tiro con arco",
+    "paintball", "airsoft", "tiro deportivo", "boliche", "curling", "bochas", "pádel", "running", "mountain bike", "rafting",
+    "kayak", "paracaidismo", "windsurf", "kitesurf", "bodyboard", "triatlón", "ironman", "marcha atlética", "kung-fu", "pelota vasca",
+    "frontón", "pilates", "fitness", "paddle surf", "wakeboard", "speed skating", "freestyle BMX", "grappling", "powerlifting"
+]
         };
         let currentCategory = "";
         let currentWord = "";
