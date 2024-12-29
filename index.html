@@ -183,10 +183,10 @@
         }
 
         function skipWord() {
-            stopTimer();
             document.getElementById("scoreInfo").textContent = `El equipo ${teams[currentTeamIndex].name} no ganó puntos por cambiar la palabra.`;
-            loadNewWord();
+            loadNewWord(); // Cargar una nueva palabra sin detener el cronómetro
         }
+
     </script>
 </body>
 </html>
