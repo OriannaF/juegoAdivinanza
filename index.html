@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+     <!-- Carrusel de imágenes -->
+     <div id="imageCarousel" style="text-align: center; margin-bottom: 20px;">
+        <img id="carouselImage" src="imagenes/im1.jpeg" alt="Carrusel" style="max-width: 100%; height: auto;">
+    </div>
+
     <h1>Juego de Adivinanzas</h1>
 
     <div id="setup">
@@ -15,7 +20,7 @@
         <button onclick="setupTeams()">Continuar</button>
         <div id="teamsContainer" class="hidden"></div>
     </div>
-
+    
     <div id="game" class="hidden">
         <h2 id="roundInfo"></h2>
         <h3 id="turnInfo"></h3>
@@ -28,6 +33,18 @@
     </div>
 
     <script>
+         // Carrusel de imágenes
+         const images = ["images/im1.jpeg", "images/im2.jpeg", "images/im3.jpeg", "images/im4.jpeg"];
+        let currentImageIndex = 0;
+
+        function changeImage() {
+            const carousel = document.getElementById("carouselImage");
+            currentImageIndex = (currentImageIndex + 1) % images.length; // Rotación de índices
+            carousel.src = images[currentImageIndex];
+        }
+
+        // Cambia la imagen cada 3 segundos
+        setInterval(changeImage, 3000);
         let teams = [];
         let currentRound = 1;
         const numRounds = 3;
