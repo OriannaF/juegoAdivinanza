@@ -39,10 +39,12 @@
         let currentPlayerIndex = 0;
         let timerStart = null;
         let categories = {
-            "Animales": ["elefante", "jirafa", "león", "canguro", "pingüino", "tigre", "zorro", "oso"],
-            "Películas": ["Titanic", "Avatar", "Inception", "Gladiator", "Joker", "Matrix", "El Padrino"],
-            "Ciencia": ["microscopio", "átomo", "gravedad", "planeta", "química", "biología", "genética"],
-            "Deportes": ["fútbol", "básquet", "tenis", "natación", "rugby", "voley", "ciclismo"]
+                    {
+            "Animales": "animales.json",
+            "Películas": "peliculas.json",
+            "Ciencia": "ciencia.json",
+            "Deportes": "deportes.json"
+        }
         };
         let currentCategory = "";
         let currentWord = "";
