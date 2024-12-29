@@ -56,18 +56,7 @@
         let timeRemaining = totalTeamTime;
         let wordStartTime = null; // Marca de tiempo para calcular puntos por palabra
         let categories = {
-            "Animales": [
-    "elefante", "jirafa", "león", "canguro", "pingüino", "tigre", "zorro", "oso", "ballena", "águila",
-    "perro", "gato", "ratón", "conejo", "caballo", "vaca", "oveja", "lobo", "mono", "delfín",
-    "rana", "pez", "serpiente", "tortuga", "cocodrilo", "puma", "camello", "hiena", "lémur", "ardilla",
-    "búho", "halcón", "canario", "cisne", "ganso", "pato", "flamenco", "pelícano", "foca", "morsa",
-    "mamut", "rinoceronte", "hipopótamo", "ciervo", "alce", "antílope", "cabra", "coyote", "murciélago", "búfalo",
-    "castor", "mapache", "zorrillo", "lagarto", "iguana", "cangrejo", "langosta", "caracol", "mariposa", "abeja",
-    "avispa", "mosquito", "saltamontes", "escorpión", "araña", "camaleón", "koala", "panda", "kookaburra", "pingüino emperador",
-    "orca", "narval", "foca leopardo", "tiburón martillo", "tiburón blanco", "pez payaso", "pez espada", "pez globo", "caballito de mar",
-    "caribú", "gacela", "toro", "cobaya", "hamster", "ardilla voladora", "albatros", "pingüino rey", "faisán", "pavo real",
-    "mochuelo", "gorrión", "colibrí", "cacatúa", "periquito", "ornitorrinco", "wallaby", "kiwi", "perezoso", "tapir"
-],
+          
             "Películas": ["El Padrino", "Titanic", "Forrest Gump", "Origen", "Sueños de fuga", "El caballero oscuro", "Pulp Fiction", "El Padrino II", "La lista de Schindler", "El señor de los anillos: El regreso del rey", "Matrix", "Gladiador", "El silencio de los inocentes", "Los infiltrados", "Parásitos", "El club de la pelea", "Interstellar", "El rey león", "Star Wars: Una nueva esperanza", "Jurassic Park", "Los Vengadores", "El lobo de Wall Street", "Seven", "Buenos muchachos", "Casablanca", "La milla verde", "Volver al futuro", "El prestigio", "Memento", "Terminator", "Una mente brillante", "La La Land", "Ciudadano Kane", "El renacido", "La red social", "Tiburón", "El resplandor", "El Gran Hotel Budapest", "Gladiador", "Avengers: Endgame", "Mad Max: Furia en el camino", "Los sospechosos de siempre", "Intouchables", "Whiplash", "Oldboy", "El Padrino III", "Amadeus", "Scream", "Matrix recargado", "El pianista", "Pulp Fiction", "Duro de matar", "El sexto sentido", "Shutter Island", "El club de los cinco", "Naranja mecánica", "Scarface", "Jurassic World", "El curioso caso de Benjamin Button", "El señor de los anillos: La comunidad del anillo", "Rocky", "El discurso del rey", "El mago de Oz", "Fargo", "Birdman", "Willy Wonka y la fábrica de chocolate", "Los Increíbles", "El show de Truman", "12 hombres en pugna", "Bastardos sin gloria", "El último samurái", "El gran Gatsby", "La caza", "No es país para viejos", "Frozen", "V de Vendetta", "El caballero oscuro: La leyenda renace", "El gran dictador", "Gladiador", "Efecto mariposa", "Slumdog Millionaire", "American History X", "El rey león", "Joker", "Star Wars: El imperio contraataca", "Forrest Gump", "Whiplash", "Marte", "Her", "Una mente brillante", "Parásitos", "En busca de la felicidad", "Los infiltrados", "Amores perros", "El secreto de sus ojos", "El clan", "El secreto de la esfinge", "Coche polaco", "El hijo de la novia", "Papeles en el viento", "Nueve reinas", "El secreto de la esfinge", "La historia oficial", "El abrazo partido", "La ciénaga", "El ciudadano ilustre", "La misma luna", "El jardinero fiel", "El secreto de las aguas", "Vivir es fácil con los ojos cerrados", "El secreto del jardín", "La leyenda del origen", "La familia", "El último rey", "La princesa prometida", "El ángel", "El bandido", "Historias breves","Titanic", "Avatar", "Inception", "Gladiator", "Joker", "Donde estan las rubias", "Shrek", "Que paso ayer", "Chiquito pero peligroso", "Barbie", "Avatar", "la substancia", "esperando la carroza", "Titanic", "Avatar", "Inception", "Gladiator", "Joker", "Matrix", "El Padrino", "Avengers", "Interstellar", "Dunkerque",
     "Forrest Gump", "Shrek", "Toy Story", "Coco", "La Bella y la Bestia", "Frozen", "Moana", "Mulan", "El Rey León", "Aladdin",
     "Harry Potter", "El Hobbit", "El Señor de los Anillos", "Star Wars", "Jurassic Park", "Indiana Jones", "Piratas del Caribe",
@@ -78,30 +67,6 @@
     "Bambi", "101 Dálmatas", "Peter Pan", "La Cenicienta", "Blancanieves", "Frozen 2", "Soul", "Encanto", "Luca", "Turning Red",
     "Inside Out", "Zootopia", "Big Hero 6", "Wreck-It Ralph", "Bolt", "Tangled", "Brave", "Meet the Robinsons", "Chicken Little", "Home"
 ],
-            "Ciencia": ["microscopio", "átomo", "gravedad", "planeta", "química", "biología", "genética", "física", "célula", "telescopio",
-    "galaxia", "estrella", "neutrón", "protón", "electrón", "molécula", "ácido", "base", "energia", "átomo de carbono",
-    "reacción química", "enzima", "ADN", "ARN", "teoría cuántica", "relatividad", "evolución", "Big Bang", "nebulosa", "agujero negro",
-    "clonación", "vacuna", "antígeno", "genoma", "biotecnología", "nanotecnología", "biodiversidad", "fotosíntesis", "ecosistema",
-    "ecología", "hidrógeno", "oxígeno", "dióxido de carbono", "alquimia", "tabla periódica", "eclipses", "meteoritos", "astrofísica",
-    "ingeniería genética", "bioquímica", "astronomía", "geología", "paleontología", "arqueología", "neurociencia", "cibernética", "robot",
-    "computación cuántica", "inteligencia artificial", "programación", "lenguaje de máquinas", "algoritmos", "dinámica de fluidos",
-    "física teórica", "tecnología", "energía solar", "energía eólica", "electricidad", "magnetismo", "termodinámica", "criogenia",
-    "meteorología", "climatología", "sismología", "volcanología", "hidrología", "biología marina", "ecología terrestre", "antropología",
-    "física de partículas", "acelerador de partículas", "rayos X", "resonancia magnética", "ultrasonido", "fuerza", "movimiento", "masa",
-    "peso", "velocidad", "aceleración", "trayectoria", "órbita", "cometa", "satélite", "ondas gravitacionales"
-],
-            "Deportes": ["fútbol", "básquet", "tenis", "natación", "rugby", "voley", "ciclismo", "beisbol", "esgrima", "golf",
-    "atletismo", "boxeo", "judo", "karate", "taekwondo", "hockey", "surf", "snowboard", "skateboarding", "parapente",
-    "remo", "piragüismo", "pesca", "alpinismo", "senderismo", "escalada", "esquí", "patinaje", "kárate", "motociclismo",
-    "automovilismo", "equitación", "criquet", "lacrosse", "softbol", "waterpolo", "salto de altura", "salto de longitud", "maratón",
-    "triatlón", "halterofilia", "lucha libre", "ping pong", "badminton", "padel", "parkour", "kickboxing", "billar", "dardos",
-    "ajedrez", "damas", "eSports", "yoga", "zumba", "crossfit", "calistenia", "capoeira", "pole dance", "tiro con arco",
-    "paintball", "airsoft", "tiro deportivo", "boliche", "curling", "bochas", "pádel", "running", "mountain bike", "rafting",
-    "kayak", "paracaidismo", "windsurf", "kitesurf", "bodyboard", "triatlón", "ironman", "marcha atlética", "kung-fu", "pelota vasca",
-    "frontón", "pilates", "fitness", "paddle surf", "wakeboard", "speed skating", "freestyle BMX", "grappling", "powerlifting"
-],
-            "Cantantes": ["Dua Lipa","Lady Gaga","Rihana", "Troy Sivan", "Ariana Grande", "La konga", "Cristina Aguilera" , "Fergie", "Beyonce", "Thalia", "Elvis Crespo", "los pericos", "Queen", "Ricky Martin", "Babasonicos", "cerati", "Maria Becerra" , "TINI", "La Konga", "Shakira", "Carlos Vives", "Gustavo Cerati", "Charly García", "Fito Páez", "Ricardo Arjona", "Soda Stereo", "Diego Torres", "Andrés Calamaro", "Coti Sorokin", "La Mona Jiménez", "Migue García", "Natalia Oreiro", "Los Auténticos Decadentes", "Miranda!", "Dante Spinetta", "Lali Espósito", "Ricky Martin", "Tini Stoessel", "Paulo Londra", "Wos", "Luna", "Ricardo Montaner", "Luis Miguel", "Chano", "Marcelo Tinelli", "Pablo Alborán", "Babasónicos", "La Mississippi", "Café Tacvba", "Bobby Pulido", "Toto La Momposina", "Los Fabulosos Cadillacs", "El Cuarteto de Nos", "Feliz", "Andrea Bocelli", "Betty Missiego", "Sofia Reyes", "Demi Lovato", "Rosana", "Carlos Baute", "Joaquín Sabina", "Paula Romero", "Martín Bossi", "Shakira", "David Morales", "Sabo Pires", "Marcos Suárez", "Miguel Bosé", "Rubén Blades", "Spinetta", "Los Pericos", "Vicentico", "Zoe Gotusso", "Fabi Cantilo", "Juanes", "La Renga", "Bersuit Vergarabat", "El Bordo", "Los Enanitos Verdes", "Joaquín Sabina", "Charly García", "Luciana", "Valeria Lynch", "Gianluca", "El Canto del Loco", "Pablo Lescano", "Axel", "Hernán Cattáneo", "Estela Raval", "Beto Coudet", "Pablito Ruiz", "Rocío Dúrcal", "Mercedes Sosa", "Malu", "Miranda", "La India", "Cande Molfese", "La 25", "Aterciopelados", "Luis Alberto Spinetta", "Litto Nebbia", "Santi Meza", "Vicentico", "Lino Patalano", "Gustavo Cerati", "Carlos Alberto Vives", "Patricio Rey", "Ricky Martin", "Paula Pires", "Gabriel García Márquez", "Naty Peluso", "Martín Alvarado", "Gustavo González", "Los Cafres", "Marco Antonio Solis", "Antonio Vega", "Doble Impacto", "Javier Calamaro","Shakira", "Adele", "Ed Sheeran", "Beyoncé", "Drake", "Billie Eilish", "Justin Bieber", "Rihanna", "The Weeknd", "Lady Gaga", "Bruno Mars", "Taylor Swift", "Katy Perry", "Post Malone", "Ariana Grande", "Eminem", "Kendrick Lamar", "Maroon 5", "Sam Smith", "Harry Styles", "Coldplay", "Dua Lipa", "Cardi B", "Travis Scott", "Selena Gomez", "Lil Nas X", "Sia", "Elton John", "Shawn Mendes", "Lizzo", "Miley Cyrus", "Camila Cabello", "Drake", "J Balvin", "Maluma", "Pitbull", "Luis Fonsi", "Bad Bunny", "Kanye West", "Nicki Minaj", "Post Malone", "Khalid", "Zayn Malik", "Lana Del Rey", "Marina", "The Chainsmokers", "Imagine Dragons", "Megan Thee Stallion", "Rita Ora", "John Legend", "BTS"]
-};
         let currentCategory = "";
         let currentWord = "";
 

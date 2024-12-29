@@ -9,3 +9,16 @@
     "kayak", "paracaidismo", "windsurf", "kitesurf", "bodyboard", "triatlón", "ironman", "marcha atlética", "kung-fu", "pelota vasca",
     "frontón", "pilates", "fitness", "paddle surf", "wakeboard", "speed skating", "freestyle BMX", "grappling", "powerlifting"
 ]
+
+ // "Animales": [
+    "elefante", "jirafa", "león", "canguro", "pingüino", "tigre", "zorro", "oso", "ballena", "águila",
+    "perro", "gato", "ratón", "conejo", "caballo", "vaca", "oveja", "lobo", "mono", "delfín",
+    "rana", "pez", "serpiente", "tortuga", "cocodrilo", "puma", "camello", "hiena", "lémur", "ardilla",
+    "búho", "halcón", "canario", "cisne", "ganso", "pato", "flamenco", "pelícano", "foca", "morsa",
+    "mamut", "rinoceronte", "hipopótamo", "ciervo", "alce", "antílope", "cabra", "coyote", "murciélago", "búfalo",
+    "castor", "mapache", "zorrillo", "lagarto", "iguana", "cangrejo", "langosta", "caracol", "mariposa", "abeja",
+    "avispa", "mosquito", "saltamontes", "escorpión", "araña", "camaleón", "koala", "panda", "kookaburra", "pingüino emperador",
+    "orca", "narval", "foca leopardo", "tiburón martillo", "tiburón blanco", "pez payaso", "pez espada", "pez globo", "caballito de mar",
+    "caribú", "gacela", "toro", "cobaya", "hamster", "ardilla voladora", "albatros", "pingüino rey", "faisán", "pavo real",
+    "mochuelo", "gorrión", "colibrí", "cacatúa", "periquito", "ornitorrinco", "wallaby", "kiwi", "perezoso", "tapir"
+],
