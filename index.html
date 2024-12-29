@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Adivinanzas</title>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Juego de Adivinanzas</h1>
@@ -20,7 +19,7 @@
         <h2 id="roundInfo"></h2>
         <h3 id="turnInfo"></h3>
         <p id="wordDisplay" class="hidden"></p>
-        <div id="cronometerDisplay">Tiempo restante: 30 segundos</div>
+        <div id="cronometerDisplay">Tiempo restante: 2:30</div>
         <button id="startTimer" onclick="startTimer()">Iniciar Contador</button>
         <button id="wordGuessed" class="hidden" onclick="wordGuessed()">Palabra Adivinada</button>
         <button id="skipWord" class="hidden" onclick="skipWord()">Cambiar Palabra</button>
@@ -33,10 +32,9 @@
         const numRounds = 3;
         let currentTeamIndex = 0;
         let currentPlayerIndex = 0;
-        let timerStart = null;
         let timerInterval = null;
-        const roundTimeLimit = 30; // Tiempo límite por turno en segundos
-        let timeRemaining = roundTimeLimit;
+        const totalTeamTime = 150; // Tiempo total por equipo en segundos (2 minutos y 30 segundos)
+        let timeRemaining = totalTeamTime;
         let categories = {
             "Animales": ["elefante", "jirafa", "león", "canguro", "pingüino"],
             "Películas": ["Titanic", "Avatar", "Inception", "Gladiator", "Joker"],
@@ -101,6 +99,7 @@
             document.getElementById("roundInfo").textContent = `Ronda ${currentRound} - Categoría: ${currentCategory}`;
             currentTeamIndex = 0;
             currentPlayerIndex = 0;
+            timeRemaining = totalTeamTime; // Reinicia el tiempo solo al comienzo del turno del equipo
             startTurn();
         }
 
@@ -114,11 +113,10 @@
             const player = team.members[currentPlayerIndex];
             document.getElementById("turnInfo").textContent = `Turno de ${player} del equipo ${team.name}`;
             loadNewWord();
-            resetTimer();
+            startTimer();
         }
 
-        function resetTimer() {
-            timeRemaining = roundTimeLimit;
+        function startTimer() {
             updateTimerDisplay();
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
@@ -132,7 +130,9 @@
         }
 
         function updateTimerDisplay() {
-            document.getElementById("cronometerDisplay").textContent = `Tiempo restante: ${timeRemaining} segundos`;
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            document.getElementById("cronometerDisplay").textContent = `Tiempo restante: ${minutes}:${seconds.toString().padStart(2, "0")}`;
         }
 
         function stopTimer() {
@@ -149,14 +149,13 @@
         }
 
         function wordGuessed() {
-            const points = Math.max(0, Math.floor(timeRemaining * 10)); // Puntos según tiempo restante.
+            const points = Math.max(0, Math.floor(timeRemaining / 10)); // Puntos según tiempo restante.
             teams[currentTeamIndex].score += points;
             document.getElementById("scoreInfo").textContent = `El equipo ${teams[currentTeamIndex].name} ganó ${points} puntos.`;
-            nextTurn();
+            loadNewWord();
         }
 
         function skipWord() {
-            document.getElementById("scoreInfo").textContent = `El equipo ${teams[currentTeamIndex].name} no ganó puntos por cambiar la palabra.`;
             loadNewWord();
         }
 
