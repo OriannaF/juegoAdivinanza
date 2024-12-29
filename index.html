@@ -36,6 +36,7 @@
         let timerInterval = null;
         const totalTeamTime = 150; // Tiempo total por equipo en segundos (2 minutos y 30 segundos)
         let timeRemaining = totalTeamTime;
+        let wordStartTime = null; // Marca de tiempo para calcular puntos por palabra
         let categories = {
             "Animales": ["elefante", "jirafa", "león", "canguro", "pingüino"],
             "Películas": ["Titanic", "Avatar", "Inception", "Gladiator", "Joker"],
@@ -147,10 +148,12 @@
             document.getElementById("startTimer").classList.add("hidden");
             document.getElementById("wordGuessed").classList.remove("hidden");
             document.getElementById("skipWord").classList.remove("hidden");
+            wordStartTime = timeRemaining; // Marca el inicio de tiempo de la palabra actual
         }
 
         function wordGuessed() {
-            const points = Math.max(0, Math.floor(timeRemaining / 10)); // Puntos según tiempo restante.
+            const timeSpent = wordStartTime - timeRemaining; // Tiempo usado en adivinar
+            const points = Math.max(10 - timeSpent, 1); // Fórmula: 10 puntos menos 1 por segundo usado (mínimo 1 punto)
             teams[currentTeamIndex].score += points;
             document.getElementById("scoreInfo").textContent = `El equipo ${teams[currentTeamIndex].name} ganó ${points} puntos.`;
             loadNewWord();
