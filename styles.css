@@ -11,6 +11,15 @@ h1, h2 {
     text-align: center;
 }
 
+#imageCarousel img {
+    width: 300px; /* Ancho fijo para las imágenes */
+    height: 200px; /* Alto fijo para las imágenes */
+    object-fit: cover; /* Ajusta la imagen para que rellene el espacio manteniendo proporciones */
+    display: block;
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+    border-radius: 10px; /* Opcional: bordes redondeados */
+}
+
 button {
     background-color: #007BFF;
     color: white;
