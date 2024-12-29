@@ -20,7 +20,7 @@
         <button onclick="setupTeams()">Continuar</button>
         <div id="teamsContainer" class="hidden"></div>
     </div>
-    
+
     <div id="game" class="hidden">
         <h2 id="roundInfo"></h2>
         <h3 id="turnInfo"></h3>
@@ -51,7 +51,7 @@
         let currentTeamIndex = 0;
         let currentPlayerIndex = 0;
         let timerInterval = null;
-        const totalTeamTime = 150; // Tiempo total por equipo en segundos (2 minutos y 30 segundos)
+        const totalTeamTime = 60; // Tiempo total por equipo en segundos (2 minutos y 30 segundos)
         let timeRemaining = totalTeamTime;
         let wordStartTime = null; // Marca de tiempo para calcular puntos por palabra
         let categories = {
