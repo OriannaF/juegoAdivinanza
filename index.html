@@ -20,7 +20,7 @@
         <h2 id="roundInfo"></h2>
         <h3 id="turnInfo"></h3>
         <p id="wordDisplay" class="hidden"></p>
-        <div id="cronometerDisplay">Tiempo transcurrido: 0 segundos</div>
+        <div id="cronometerDisplay">Tiempo restante: 30 segundos</div>
         <button id="startTimer" onclick="startTimer()">Iniciar Contador</button>
         <button id="wordGuessed" class="hidden" onclick="wordGuessed()">Palabra Adivinada</button>
         <button id="skipWord" class="hidden" onclick="skipWord()">Cambiar Palabra</button>
@@ -30,59 +30,18 @@
     <script>
         let teams = [];
         let currentRound = 1;
-        let numRounds = 3;
+        const numRounds = 3;
         let currentTeamIndex = 0;
         let currentPlayerIndex = 0;
         let timerStart = null;
         let timerInterval = null;
+        const roundTimeLimit = 30; // Tiempo límite por turno en segundos
+        let timeRemaining = roundTimeLimit;
         let categories = {
-            "Animales": [
-    "elefante", "jirafa", "león", "canguro", "pingüino", "tigre", "zorro", "oso", "ballena", "águila",
-    "perro", "gato", "ratón", "conejo", "caballo", "vaca", "oveja", "lobo", "mono", "delfín",
-    "rana", "pez", "serpiente", "tortuga", "cocodrilo", "puma", "camello", "hiena", "lémur", "ardilla",
-    "búho", "halcón", "canario", "cisne", "ganso", "pato", "flamenco", "pelícano", "foca", "morsa",
-    "mamut", "rinoceronte", "hipopótamo", "ciervo", "alce", "antílope", "cabra", "coyote", "murciélago", "búfalo",
-    "castor", "mapache", "zorrillo", "lagarto", "iguana", "cangrejo", "langosta", "caracol", "mariposa", "abeja",
-    "avispa", "mosquito", "saltamontes", "escorpión", "araña", "camaleón", "koala", "panda", "kookaburra", "pingüino emperador",
-    "orca", "narval", "foca leopardo", "tiburón martillo", "tiburón blanco", "pez payaso", "pez espada", "pez globo", "caballito de mar",
-    "caribú", "gacela", "toro", "cobaya", "hamster", "ardilla voladora", "albatros", "pingüino rey", "faisán", "pavo real",
-    "mochuelo", "gorrión", "colibrí", "cacatúa", "periquito", "ornitorrinco", "wallaby", "kiwi", "perezoso", "tapir"
-],
-            "Películas": [
-    "Titanic", "Avatar", "Inception", "Gladiator", "Joker", "Matrix", "El Padrino", "Avengers", "Interstellar", "Dunkerque",
-    "Forrest Gump", "Shrek", "Toy Story", "Coco", "La Bella y la Bestia", "Frozen", "Moana", "Mulan", "El Rey León", "Aladdin",
-    "Harry Potter", "El Hobbit", "El Señor de los Anillos", "Star Wars", "Jurassic Park", "Indiana Jones", "Piratas del Caribe",
-    "Batman", "Spider-Man", "Iron Man", "Thor", "Capitán América", "Doctor Strange", "Black Panther", "Ant-Man", "Guardianes de la Galaxia",
-    "X-Men", "Deadpool", "Logan", "Wolverine", "Transformers", "Fast and Furious", "Misión Imposible", "James Bond", "John Wick",
-    "El Resplandor", "Psicosis", "El Exorcista", "It", "Hereditary", "Un Lugar en Silencio", "El Conjuro", "Annabelle", "Saw", "Paranormal Activity",
-    "Buscando a Nemo", "Up", "WALL-E", "Los Increíbles", "Ratatouille", "Cars", "Monstruos SA", "La Sirenita", "Pinocho", "Dumbo",
-    "Bambi", "101 Dálmatas", "Peter Pan", "La Cenicienta", "Blancanieves", "Frozen 2", "Soul", "Encanto", "Luca", "Turning Red",
-    "Inside Out", "Zootopia", "Big Hero 6", "Wreck-It Ralph", "Bolt", "Tangled", "Brave", "Meet the Robinsons", "Chicken Little", "Home"
-],
-            "Ciencia":[
-    "microscopio", "átomo", "gravedad", "planeta", "química", "biología", "genética", "física", "célula", "telescopio",
-    "galaxia", "estrella", "neutrón", "protón", "electrón", "molécula", "ácido", "base", "energia", "átomo de carbono",
-    "reacción química", "enzima", "ADN", "ARN", "teoría cuántica", "relatividad", "evolución", "Big Bang", "nebulosa", "agujero negro",
-    "clonación", "vacuna", "antígeno", "genoma", "biotecnología", "nanotecnología", "biodiversidad", "fotosíntesis", "ecosistema",
-    "ecología", "hidrógeno", "oxígeno", "dióxido de carbono", "alquimia", "tabla periódica", "eclipses", "meteoritos", "astrofísica",
-    "ingeniería genética", "bioquímica", "astronomía", "geología", "paleontología", "arqueología", "neurociencia", "cibernética", "robot",
-    "computación cuántica", "inteligencia artificial", "programación", "lenguaje de máquinas", "algoritmos", "dinámica de fluidos",
-    "física teórica", "tecnología", "energía solar", "energía eólica", "electricidad", "magnetismo", "termodinámica", "criogenia",
-    "meteorología", "climatología", "sismología", "volcanología", "hidrología", "biología marina", "ecología terrestre", "antropología",
-    "física de partículas", "acelerador de partículas", "rayos X", "resonancia magnética", "ultrasonido", "fuerza", "movimiento", "masa",
-    "peso", "velocidad", "aceleración", "trayectoria", "órbita", "cometa", "satélite", "ondas gravitacionales"
-],
-            "Deportes": [
-    "fútbol", "básquet", "tenis", "natación", "rugby", "voley", "ciclismo", "beisbol", "esgrima", "golf",
-    "atletismo", "boxeo", "judo", "karate", "taekwondo", "hockey", "surf", "snowboard", "skateboarding", "parapente",
-    "remo", "piragüismo", "pesca", "alpinismo", "senderismo", "escalada", "esquí", "patinaje", "kárate", "motociclismo",
-    "automovilismo", "equitación", "criquet", "lacrosse", "softbol", "waterpolo", "salto de altura", "salto de longitud", "maratón",
-    "triatlón", "halterofilia", "lucha libre", "ping pong", "badminton", "padel", "parkour", "kickboxing", "billar", "dardos",
-    "ajedrez", "damas", "eSports", "yoga", "zumba", "crossfit", "calistenia", "capoeira", "pole dance", "tiro con arco",
-    "paintball", "airsoft", "tiro deportivo", "boliche", "curling", "bochas", "pádel", "running", "mountain bike", "rafting",
-    "kayak", "paracaidismo", "windsurf", "kitesurf", "bodyboard", "triatlón", "ironman", "marcha atlética", "kung-fu", "pelota vasca",
-    "frontón", "pilates", "fitness", "paddle surf", "wakeboard", "speed skating", "freestyle BMX", "grappling", "powerlifting"
-]
+            "Animales": ["elefante", "jirafa", "león", "canguro", "pingüino"],
+            "Películas": ["Titanic", "Avatar", "Inception", "Gladiator", "Joker"],
+            "Ciencia": ["microscopio", "átomo", "gravedad", "planeta", "química"],
+            "Deportes": ["fútbol", "básquet", "tenis", "natación", "rugby"]
         };
         let currentCategory = "";
         let currentWord = "";
@@ -133,35 +92,47 @@
         }
 
         function startRound() {
+            if (currentRound > numRounds) {
+                endGame();
+                return;
+            }
             currentCategory = Object.keys(categories)[Math.floor(Math.random() * Object.keys(categories).length)];
             document.getElementById("game").classList.remove("hidden");
             document.getElementById("roundInfo").textContent = `Ronda ${currentRound} - Categoría: ${currentCategory}`;
+            currentTeamIndex = 0;
+            currentPlayerIndex = 0;
             startTurn();
         }
 
         function startTurn() {
+            if (currentTeamIndex >= teams.length) {
+                currentRound++;
+                startRound();
+                return;
+            }
             const team = teams[currentTeamIndex];
             const player = team.members[currentPlayerIndex];
             document.getElementById("turnInfo").textContent = `Turno de ${player} del equipo ${team.name}`;
             loadNewWord();
-            document.getElementById("wordDisplay").classList.remove("hidden");
-            document.getElementById("startTimer").classList.remove("hidden");
-            document.getElementById("wordGuessed").classList.add("hidden");
-            document.getElementById("skipWord").classList.add("hidden");
+            resetTimer();
         }
 
-        function startTimer() {
-            timerStart = Date.now();
-            const cronometerDisplay = document.getElementById("cronometerDisplay");
-            let seconds = 0;
+        function resetTimer() {
+            timeRemaining = roundTimeLimit;
+            updateTimerDisplay();
+            clearInterval(timerInterval);
             timerInterval = setInterval(() => {
-                seconds++;
-                cronometerDisplay.textContent = `Tiempo transcurrido: ${seconds} segundos`;
+                timeRemaining--;
+                updateTimerDisplay();
+                if (timeRemaining <= 0) {
+                    stopTimer();
+                    nextTurn();
+                }
             }, 1000);
+        }
 
-            document.getElementById("startTimer").classList.add("hidden");
-            document.getElementById("wordGuessed").classList.remove("hidden");
-            document.getElementById("skipWord").classList.remove("hidden");
+        function updateTimerDisplay() {
+            document.getElementById("cronometerDisplay").textContent = `Tiempo restante: ${timeRemaining} segundos`;
         }
 
         function stopTimer() {
@@ -171,22 +142,39 @@
         function loadNewWord() {
             currentWord = categories[currentCategory][Math.floor(Math.random() * categories[currentCategory].length)];
             document.getElementById("wordDisplay").textContent = `Palabra: ${currentWord}`;
+            document.getElementById("wordDisplay").classList.remove("hidden");
+            document.getElementById("startTimer").classList.add("hidden");
+            document.getElementById("wordGuessed").classList.remove("hidden");
+            document.getElementById("skipWord").classList.remove("hidden");
         }
 
         function wordGuessed() {
-            const elapsed = (Date.now() - timerStart) / 1000;
-            stopTimer();
-            const points = Math.max(0, Math.floor(100 - elapsed * 10)); // Puntos disminuyen según el tiempo.
+            const points = Math.max(0, Math.floor(timeRemaining * 10)); // Puntos según tiempo restante.
             teams[currentTeamIndex].score += points;
             document.getElementById("scoreInfo").textContent = `El equipo ${teams[currentTeamIndex].name} ganó ${points} puntos.`;
-            loadNewWord();
+            nextTurn();
         }
 
         function skipWord() {
             document.getElementById("scoreInfo").textContent = `El equipo ${teams[currentTeamIndex].name} no ganó puntos por cambiar la palabra.`;
-            loadNewWord(); // Cargar una nueva palabra sin detener el cronómetro
+            loadNewWord();
         }
 
+        function nextTurn() {
+            stopTimer();
+            currentPlayerIndex++;
+            const team = teams[currentTeamIndex];
+            if (currentPlayerIndex >= team.members.length) {
+                currentPlayerIndex = 0;
+                currentTeamIndex++;
+            }
+            startTurn();
+        }
+
+        function endGame() {
+            const winner = teams.reduce((best, team) => (team.score > best.score ? team : best), teams[0]);
+            alert(`¡El juego ha terminado! El equipo ganador es ${winner.name} con ${winner.score} puntos.`);
+        }
     </script>
 </body>
 </html>
